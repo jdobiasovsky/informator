@@ -11,12 +11,12 @@ harvest_index <- function(){
   index <- conn$search(params = list(q = '*:*', rows = KRAMERIUS_SIZE,
                                      fl = paste(FIELD_LIST, collapse = ","), 
                                      fq = paste(paste("fedora.model:", FEDORA_MODELS, sep = ""), collapse = " OR ")))
-  write.csv(index, "./index.csv") 
+  write.csv(index, "./data/index.csv") 
   writeLines(as.character(Sys.Date()),"./.last_harvest", sep = "")
 }  
 
 load_index <- function(){
-  index <- read_csv("index.csv", col_types = cols(X1 = col_integer(), 
+  index <- read_csv("./data/index.csv", col_types = cols(X1 = col_integer(), 
                                                   fedora.model = col_character(), created_date = col_datetime(), 
                                                   dostupnost = col_character(), pages_count = col_double()))
   return(index)

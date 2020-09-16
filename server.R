@@ -3,7 +3,7 @@ source("./index_tools.R", echo = FALSE)
 index <- load_index()
 
 ## server.R ##
-function(input,output,session){
+function(input,output){
   # print date of harvested index
   output$version <- renderText({
     paste("Index version:", read_file("./.last_harvest"))
