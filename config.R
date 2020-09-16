@@ -5,7 +5,7 @@ SOLR_PORT <- 8983
 SOLR_PATH <- "solr/kramerius/select"
 
 # harvest following fedora models
-FEDORA_MODELS <- c("monograph", "periodical")
+FEDORA_MODELS <- c("page", "monograph", "periodicalitem", "periodicalvolume")
 
 # harvest following fields
 FIELD_LIST <- c("PID","fedora.model","created_date","dostupnost", "pages_count")
