@@ -1,7 +1,4 @@
 library(shiny)
-
-ui <- source('ui.R', local = TRUE)
-server <-source('server.R')
-
-
+ui <- source("./ui.R")
+server <- source("./server.R")
 shinyApp(ui,server)

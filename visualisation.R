@@ -3,13 +3,37 @@ library(plotrix)
 library(dplyr)
 library(lubridate)
 
-new_docs_hist <- function(index,from,to,doctypes,visibility){
-  index <- index %>% 
+screen_settings_height <- function(selection){
+  if (selection == "auto"){
+    return("auto")
+  } else if (selection == "large") {
+    return(768)
+  } else if (selection == "medium") {
+    return(640)
+  } else if (selection == "small") {
+    return(256)
+  }
+}
+
+# screen_settings_width<- function(selection){
+#   if (selection == "auto"){
+#     return("auto")
+#   } else if (selection == "large") {
+#     return(1280)
+#   } else if (selection == "medium") {
+#     return(640)
+#   } else if (selection == "small") {
+#     return(308)
+#   }
+# }
+
+new_docs_hist <- function(data,from,to,doctypes,visibility){
+  data <- data %>% 
     filter(dostupnost %in% visibility) %>%
     filter(fedora.model %in% doctypes) %>%
     filter(created_date > from & created_date < to) 
   
-  ggplot(index,aes(created_date)) + 
+  ggplot(data,aes(created_date)) + 
   geom_histogram() + 
   scale_x_datetime(breaks = "years", date_labels = "%Y") +
   labs(title = "Digital library growth") + 
@@ -17,10 +41,13 @@ new_docs_hist <- function(index,from,to,doctypes,visibility){
   ylab("Documents added")
 }
 
-new_docs_growth <- function(index, from, to, doctypes, visibility){
-  no_of_docs_before <- index %>% filter(created_date < from) %>% nrow()
+new_docs_growth <- function(data, from, to, doctypes, visibility){
+  no_of_docs_before <- data %>%
+      filter(dostupnost %in% visibility) %>%
+      filter(fedora.model %in% doctypes) %>%
+      filter(created_date < from) %>% nrow()
   
-  index <- index %>% 
+  data <- data %>% 
     filter(dostupnost %in% visibility) %>%
     filter(fedora.model %in% doctypes) %>%
     filter(created_date > from & created_date < to) %>% 
@@ -30,7 +57,7 @@ new_docs_growth <- function(index, from, to, doctypes, visibility){
   
     
   return(
-    ggplot(index,aes(created_date, total_docs, label = n)) + 
+    ggplot(data,aes(created_date, total_docs, label = n)) + 
       geom_line() +
       geom_point(aes(created_date,total_docs))) + 
       labs(title = "Digital library growth") + 
@@ -39,8 +66,8 @@ new_docs_growth <- function(index, from, to, doctypes, visibility){
   }
 
 
-digital_library_composition <- function(index, from, to, doctypes,visibility){
-  index <- index %>% 
+digital_library_composition <- function(data, from, to, doctypes,visibility){
+  data <- data %>% 
     filter(dostupnost %in% visibility) %>%
     filter(fedora.model %in% doctypes) %>%
     filter(created_date > from & created_date < to) %>% 
@@ -48,6 +75,11 @@ digital_library_composition <- function(index, from, to, doctypes,visibility){
     tally()
   
   return(
-    pie3D(index$n, labels = index$fedora.model, main = "Digital library composition", explode=0.1, radius=.9, labelcex = 1.2,  start=0.7)
+    pie3D(data$n, labels = data$fedora.model, main = "Digital library composition", explode=0.1, radius=.9, labelcex = 1.2,  start=0.7)
   )
+}
+
+collection_growth <- function(data, from, to, doctypes, visibility, collection_id){
+  data <- data %>% filter(collection == collection_id)
+  
 }
