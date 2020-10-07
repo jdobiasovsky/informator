@@ -22,17 +22,37 @@ function(input,output){
   
   # growth tab plot
   output$growth_graph <- renderPlot({
-    new_docs_growth(index, input$daterange[1], input$daterange[2], input$doctypes, input$visibility)
+    if (input$collection_selector == "any"){
+      new_docs_growth(index, input$daterange[1], input$daterange[2], input$doctypes, input$visibility)  
+    } else if (input$collection_selector == "none"){
+      new_docs_growth(filter_collection(index,collection_id = "none"), input$daterange[1], input$daterange[2], input$doctypes, input$visibility)
+    } else {
+      new_docs_growth(filter_collection(index,collection_id = input$collection_selector), input$daterange[1], input$daterange[2], input$doctypes, input$visibility)
+    }
+    
   }, height = screen_height)
   
   # composition tab plot
   output$composition_graph <- renderPlot({
-    digital_library_composition(index, input$daterange[1], input$daterange[2], input$doctypes, input$visibility)
+    
+    if (input$collection_selector == "any"){
+      digital_library_composition(index, input$daterange[1], input$daterange[2], input$doctypes, input$visibility)  
+    } else if (input$collection_selector == "none"){
+      digital_library_composition(filter_collection(index,collection_id = "none"), input$daterange[1], input$daterange[2], input$doctypes, input$visibility)
+    } else {
+      digital_library_composition(filter_collection(index,collection_id = input$collection_selector), input$daterange[1], input$daterange[2], input$doctypes, input$visibility)
+    }
   }, height = screen_height)
   
   # report card
   output$report_card <- renderDataTable(
-    generate_report_card(index, input$daterange[1], input$daterange[2], input$doctypes, input$visibility)
+    if (input$collection_selector == "any"){
+      generate_report_card(index, input$daterange[1], input$daterange[2], input$doctypes, input$visibility)  
+    } else if (input$collection_selector == "none"){
+      generate_report_card(filter_collection(index,collection_id = "none"), input$daterange[1], input$daterange[2], input$doctypes, input$visibility)
+    } else {
+      generate_report_card(filter_collection(index,collection_id = input$collection_selector), input$daterange[1], input$daterange[2], input$doctypes, input$visibility)
+    }
   )
   
   # display sidebar selection elsewhere

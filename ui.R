@@ -1,3 +1,4 @@
+source("./kramerius_toolbox.R")
 collections <- collection_info()
 
 ## ui.R ##
@@ -37,10 +38,10 @@ fluidPage(
         ),
     
       radioButtons(
-        inputId = "collections_mode",
+        inputId = "collection_selector",
         label = "Collections",
         choiceNames = c("All", "Documents without collection", collections$descs.en),
-        choiceValues = c("All", NA, collections$pid)
+        choiceValues = c("any", "none", collections$pid)
       ),
       actionButton(inputId = "update", "Update index (might take a while)")
     ),

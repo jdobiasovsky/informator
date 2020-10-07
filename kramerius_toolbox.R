@@ -40,7 +40,9 @@ collection_info <- function(){
 filter_collection <- function(data, collection_id){
   if (collection_id == "any"){
     return(filter(data,!is.na(collection)))
+  } else if (collection_id == "none") {
+    return(filter(data, is.na(collection)))
   } else {
     return(filter(data,!is.na(collection) & collection == collection_id))
-  }
+  } 
 }
