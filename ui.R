@@ -1,7 +1,3 @@
-library(shiny)
-library(shinybusy)
-library(shinythemes)
-
 ## ui.R ##
 fluidPage(title = "Informator", theme = shinytheme("united"),
   add_busy_spinner(spin = "bounce", color = "white"),
