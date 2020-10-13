@@ -60,6 +60,6 @@ filter_collection <- function(data, collection_id){
   } else if (collection_id == "none") {
     return(filter(data, is.na(collection)))
   } else {
-    return(filter(data,!is.na(collection) & collection == collection_id))
+    return(filter(data, collection == collection_id))
   } 
 }

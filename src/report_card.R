@@ -31,7 +31,7 @@ generate_report_card_overview <- function(data,from,to,doctypes,visibility){
   # @param to: string or datetime value for narrowing data to certain point
   # @param doctypes: display data for selected document types (see config for possible values)
   # @param visibility: filter documents by their visibility settings c("private","public")
-    data <- index %>% 
+    data <- data %>% 
       filter(dostupnost %in% visibility) %>%
       filter(fedora.model %in% doctypes) %>%
       filter(created_date > from & created_date < to) 

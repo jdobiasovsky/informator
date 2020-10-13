@@ -36,12 +36,12 @@ fluidPage(title = "Informator", theme = shinytheme("united"),
           label = "Collections",
           choiceNames = c("All", "Documents without collection", collections$descs.en),
           choiceValues = c("any", "none", collections$pid)
-        )
+        ),
+        radioButtons(inputId = "zoom", label = "Graph size", choices = c("large", "medium", "small", "auto"),inline = TRUE,selected = "auto")
       ),
       
       mainPanel(
         # main panel displaying graphs based on sidebar selection
-        radioButtons(inputId = "zoom", label = "Zoom", choices = c("large", "medium", "small", "auto"),inline = TRUE,selected = "large"),
         tabsetPanel(
           tabPanel(
             title = "Growth", 
@@ -59,10 +59,8 @@ fluidPage(title = "Informator", theme = shinytheme("united"),
             dataTableOutput("report_card_overview"),
             dataTableOutput("report_card_bydate")
           )
-        )
-      )
-  ),    
-  hr(), # insert simple disclaimer under horizontal ruler
-  print("Found a bug? Let me know at: https://github.com/jdobiasovsky/informator/issues")
+        ),
+      ),
+  )    
 )
 
