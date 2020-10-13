@@ -15,17 +15,17 @@ screen_settings_height <- function(selection){
   }
 }
 
-# screen_settings_width<- function(selection){
-#   if (selection == "auto"){
-#     return("auto")
-#   } else if (selection == "large") {
-#     return(1280)
-#   } else if (selection == "medium") {
-#     return(640)
-#   } else if (selection == "small") {
-#     return(308)
-#   }
-# }
+screen_settings_width<- function(selection){
+  if (selection == "auto"){
+    return("auto")
+  } else if (selection == "large") {
+    return(1280)
+  } else if (selection == "medium") {
+    return(640)
+  } else if (selection == "small") {
+    return(308)
+  }
+}
 
 new_docs_hist <- function(data,from,to,doctypes,visibility){
   data <- data %>% 
@@ -66,7 +66,7 @@ new_docs_growth <- function(data, from, to, doctypes, visibility){
   }
 
 
-digital_library_composition <- function(data, from, to, doctypes,visibility){
+composition_doctypes_graph <- function(data, from, to, doctypes, visibility){
   data <- data %>% 
     filter(dostupnost %in% visibility) %>%
     filter(fedora.model %in% doctypes) %>%
@@ -75,8 +75,20 @@ digital_library_composition <- function(data, from, to, doctypes,visibility){
     tally()
   
   return(
-    pie3D(data$n, labels = data$fedora.model, main = "Digital library composition", explode=0.1, radius=.9, labelcex = 1.2,  start=0.7)
-  )
+    pie3D(data$n, labels = data$fedora.model, main = "Document types", explode=0.1, radius=.9, labelcex = 1.2,  start=0.7)
+    )
+}
+
+composition_visibility_graph <- function(data,from,to, doctypes){
+  data <- data %>% 
+    filter(fedora.model %in% doctypes) %>%
+    filter(created_date > from & created_date < to) %>% 
+    group_by(dostupnost) %>%
+    tally()
+  
+  return(
+    pie3D(data$n, labels = data$dostupnost, main = "Document visibility", explode=0.1, radius=.9, labelcex = 1.2,  start=0.7)
+    )
 }
 
 collection_growth <- function(data, from, to, doctypes, visibility, collection_id){
