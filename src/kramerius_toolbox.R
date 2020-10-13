@@ -4,8 +4,6 @@ library(jsonlite)
 library(solrium)
 library(readr)
 library(xml2)
-source("./config.R")
-
 
 get_index <- function(){
   # query kramerius api with parameters from config
@@ -15,7 +13,8 @@ get_index <- function(){
   rows = format(KRAMERIUS_SIZE,scientific=FALSE)
   
   constructed_query <- paste0(c("?q=",q,"fq=", fq, "fl=", fl, "rows=",rows),c("", "&"), collapse = "")
-  request <- paste(KRAMERIUS_API,constructed_query,sep = "")
+  request <- paste(KRAMERIUS_API,"search",constructed_query,sep = "")
+  print("Fetching index...")
   data <- read_xml(request)
   
   # find document nodes in response
@@ -65,7 +64,8 @@ solr_load_index <- function(){
 
 
 collection_info <- function(){
-  df <- tibble(flatten(stream_in(file("http://kramerius1.ntkcz.cz:8080/search/api/v5.0/vc")))) %>% 
+  print("Fetching collection info...")
+  df <- tibble(flatten(stream_in(file(paste(KRAMERIUS_API,"vc", sep = ""))))) %>% 
     select(pid,descs.en,numberOfDocs) %>% 
     rename(number.of.docs = numberOfDocs)
   return(df)

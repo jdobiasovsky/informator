@@ -1,6 +1,6 @@
+library(shiny)
 library(shinybusy)
 library(shinythemes)
-collections <- collection_info()
 
 ## ui.R ##
 fluidPage(title = "Informator", theme = shinytheme("united"),

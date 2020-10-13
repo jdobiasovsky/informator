@@ -1,11 +1,6 @@
 ## Configuration file to allow customisation of separate instances
-# url of kramerius core along with standard query parser
-# SCHEME <- "http"
-# SOLR_HOST <- "kramerius1.ntkcz.cz"
-# SOLR_PORT <- 8983
-# SOLR_PATH <- "solr/kramerius/select"
 
-KRAMERIUS_API <- "https://kramerius.techlib.cz/search/api/v5.0/search"
+KRAMERIUS_API <- "https://kramerius.techlib.cz/search/api/v5.0/"
 
 # harvest following fedora models
 FEDORA_MODELS <- c("monograph", "periodicalitem", "periodicalvolume") # "page"

@@ -1,10 +1,5 @@
 ## server.R ##
 function(input,output){
-  library(shinybusy)
-  source("./config.R")
-  source("./visualisation.R", echo = FALSE)
-  source("./kramerius_toolbox.R", echo = FALSE)
-  source("./report_card.R", echo = FALSE)
   # load necessary data for visualisation
   show_modal_spinner(spin = "semipolar", text = "Please wait, preparing data...", color = "#e95420")
   index <- get_index()
