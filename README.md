@@ -1,14 +1,15 @@
 # Informator
-Tool for visualising contents of Kramerius digital library at NTL.
+Dashboard written in R used for visualising contents of Kramerius digital library at NTL.
 
-# Libraries required
-Command line:
-```
-sudo dnf install libcurl-devel
-sudo dnf install libxml2-devel
-```
+You visit running example at: https://jdobiasovsky.shinyapps.io/informator/
+or by using runGitHub("https://github.com/jdobiasovsky/informator/") within your RStudio or R session.
 
-R
-```
-install.packages("solrium")
-```
+### Packages used
+* tidyverse (dplyr, readr, lubridate)
+* shiny
+* shinythemes
+* shinybusy
+* jsonlite
+* xml2
+* ggplot2
+* plotrix
