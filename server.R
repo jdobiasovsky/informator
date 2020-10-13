@@ -6,6 +6,7 @@ function(input,output){
   collections <- collection_info()
   remove_modal_spinner()
   
+  # retrieve user graph size selection if it changes from default
   screen_height <- reactive({
     screen_settings_height(input$zoom)
   })
@@ -14,7 +15,7 @@ function(input,output){
     screen_settings_width(input$zoom)
   })
   
-  # growth tab plot
+  # Prepare graphs for the Growth tab
   output$growth_graph <- renderPlot({
     if (input$collection_selector == "any"){
       new_docs_growth(index, input$daterange[1], input$daterange[2], input$doctypes, input$visibility)  
@@ -26,7 +27,7 @@ function(input,output){
     
   }, height = screen_height)
   
-  # composition tab plot
+  # Prepare pie charts for Composition tab plot
   output$composition_doctypes <- renderPlot({
     
     if (input$collection_selector == "any"){
@@ -48,7 +49,7 @@ function(input,output){
     }
   })
   
-  # report card grouped by date 
+  # Prep report card grouped by date 
   output$report_card_bydate <- renderDataTable(
     if (input$collection_selector == "any"){
       generate_report_card_bydate(index, input$daterange[1], input$daterange[2], input$doctypes, input$visibility)  
@@ -61,7 +62,7 @@ function(input,output){
     )
   
   
-  # frequency of doctypes report card
+  # Prep frequency of doctypes report card
   output$report_card_overview <- renderDataTable(
     if (input$collection_selector == "any"){
       generate_report_card_overview(index, input$daterange[1], input$daterange[2], input$doctypes, input$visibility)  
@@ -72,8 +73,7 @@ function(input,output){
     }
   )
   
-  
-  # display sidebar selection elsewhere
+  # display sidebar selection elsewhere if needed
   output$filter_from <- renderPrint(input$daterange[1])
   output$filter_to <- renderPrint(input$daterange[2])
 }

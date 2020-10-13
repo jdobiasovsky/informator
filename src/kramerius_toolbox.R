@@ -10,10 +10,11 @@ get_index <- function(){
   fl = paste(FIELD_LIST, collapse = ",")
   fq = paste(paste("fedora.model:", FEDORA_MODELS, sep = ""), collapse = "%20OR%20")
   rows = format(KRAMERIUS_SIZE,scientific=FALSE)
-  
   constructed_query <- paste0(c("?q=",q,"fq=", fq, "fl=", fl, "rows=",rows),c("", "&"), collapse = "")
-  request <- paste(KRAMERIUS_API,"search",constructed_query,sep = "")
+  
+  
   print("Fetching index...")
+  request <- paste(KRAMERIUS_API,"search",constructed_query,sep = "")
   data <- read_xml(request)
   
   # find document nodes in response
@@ -23,6 +24,7 @@ get_index <- function(){
   vals <- lapply(docs, function(x){xml_children(x)})
 
   # create data.frame for each node, bind them together into single large dataframe (each row - one document)
+  # TODO: optimise for vector operations
   index <- bind_rows(lapply(vals, function(nodeset){
     # converts nodeset to data.frame with colnames based on values of xml_attr(name_attr)
     node_values <- xml_text(nodeset)
@@ -38,6 +40,8 @@ get_index <- function(){
 
 
 collection_info <- function(){
+  # pull json data about collections from kramerius API, return as tibble
+  
   print("Fetching collection info...")
   df <- tibble(flatten(stream_in(file(paste(KRAMERIUS_API,"vc", sep = ""))))) %>% 
     select(pid,descs.en,numberOfDocs) %>% 
@@ -47,6 +51,10 @@ collection_info <- function(){
 
 
 filter_collection <- function(data, collection_id){
+  # filter specific collection from provided data
+  # @param data: data to filter from
+  # @param collection_id: collection identifier (can be found using collection_info())
+  
   if (collection_id == "any"){
     return(filter(data,!is.na(collection)))
   } else if (collection_id == "none") {

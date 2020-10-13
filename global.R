@@ -1,3 +1,4 @@
+# Set global variables required by app prior to loading
 library(shiny)
 library(shinybusy)
 library(shinythemes)
