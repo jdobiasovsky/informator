@@ -61,6 +61,8 @@ fluidPage(title = "Informator", theme = shinytheme("united"),
           )
         )
       )
-  )
+  ),    
+  hr(), # insert simple disclaimer under horizontal ruler
+  print("Found a bug? Let me know at: https://github.com/jdobiasovsky/informator/issues")
 )
 
