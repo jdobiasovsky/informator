@@ -4,7 +4,7 @@ Dashboard written in R used for visualising contents of Kramerius digital librar
 You visit running example at: https://jdobiasovsky.shinyapps.io/informator/
 or by using runGitHub("https://github.com/jdobiasovsky/informator/") within your RStudio or R session.
 
-# Packages used
+### Packages used
 tidyverse (dplyr, readr, lubridate)
 shiny
 shinythemes
