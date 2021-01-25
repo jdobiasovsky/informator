@@ -10,7 +10,7 @@ get_index <- function(){
   fl = paste(FIELD_LIST, collapse = ",")
   fq = paste(paste("fedora.model:", FEDORA_MODELS, sep = ""), collapse = "%20OR%20")
   rows = format(KRAMERIUS_SIZE,scientific=FALSE)
-  constructed_query <- paste0(c("?q=",q,"fq=", fq, "fl=", fl, "rows=",rows),c("", "&"), collapse = "")
+  constructed_query <- paste0(c("?q=",q,"fq=", fq, "fl=", fl, "rows=",rows,"wt=xml"),c("", "&"), collapse = "")
   
   
   print("Fetching index...")
