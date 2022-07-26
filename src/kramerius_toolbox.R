@@ -3,6 +3,7 @@ library(readr)
 library(jsonlite)
 library(readr)
 library(xml2)
+library(dplyr)
 
 get_index <- function(){
   # query kramerius api with parameters from config
